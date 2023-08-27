@@ -14,10 +14,16 @@ export default async function Home () {
     redirect('/login')
   }
 
-  const { data: posts } = await supabase
+  const { data } = await supabase
     .from('posts')
     .select('*, user:users(name, avatar_url, user_name)')
     .order('created_at', { ascending: false })
+
+  const posts =
+    data?.map(post => ({
+      ...post,
+      user: Array.isArray(post.user) ? post.user[0] : post.user
+    })) ?? []
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">

@@ -7,7 +7,7 @@ import { type Database } from './types/database'
 import { ComposePost } from './components/compose-post'
 import { type Post } from './types/posts'
 
-export default async function Home() {
+export default async function Home () {
   const supabase = createServerComponentClient<Database>({ cookies })
   const { data: { session } } = await supabase.auth.getSession()
 
